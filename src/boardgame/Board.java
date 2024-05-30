@@ -13,6 +13,14 @@ public class Board {
         pieces = new Piece[rows][collumns];
     }
 
+    public Piece piece(int row, int collumn){
+        return piece(row,collumn);
+    }
+
+    public Piece piece(Position position){
+        return pieces[position.getRow()][position.getCollumn()];
+    }
+
     public int getCollumns() {
         return collumns;
     }
