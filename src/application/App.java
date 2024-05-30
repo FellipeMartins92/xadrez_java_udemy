@@ -1,6 +1,12 @@
 package application;
+
+import boardgame.Position;
+
 public class App {
     public static void main(String[] args) throws Exception {
-        System.out.println("aloslos");
+        Position posi = new Position(2, 2);
+
+        System.out.println(posi.toString());
+
     }
 }
