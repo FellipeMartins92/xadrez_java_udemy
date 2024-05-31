@@ -65,6 +65,22 @@ public class Board {
         return piece(position) != null;
     }
 
+    public Piece Remove_piece(Position position){
+
+        if(!Position_exists(position)){
+            throw new BoardException("tem nada aí");
+        }
+        if(piece(position) == null){
+            return null;
+        }
+
+        Piece aux = piece(position);
+        aux.position = null;
+
+        pieces[position.getRow()][position.getCollumn()] = null;
+        return aux;
+    }
+
     public int getCollumns() {
         return collumns;
     }

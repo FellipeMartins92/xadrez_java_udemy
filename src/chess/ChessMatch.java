@@ -1,6 +1,7 @@
 package chess;
 
 import boardgame.Board;
+import boardgame.Piece;
 import boardgame.Position;
 import chess_pieces.King;
 import chess_pieces.Rook;
@@ -47,6 +48,29 @@ public class ChessMatch {
         place_new_piece('d', 8, new King(board, Colors.BLACK));
     }
 
+    public ChessPiece PerformChessMove(ChessPosition SourcePosition,ChessPosition TargetPosition){
 
+        Position source = SourcePosition.toPosition();
+        Position target = TargetPosition.toPosition();
+
+        validateSourcePosition(source);
+        Piece CapturedPiece = MakeMove(source,target);
+
+        return (ChessPiece) CapturedPiece;
+    }
+
+    private Piece MakeMove(Position Source,Position Target){
+        Piece p = board.Remove_piece(Source);
+        Piece captured = board.Remove_piece(Target);
+        board.place_piece(p, Target);
+
+        return captured;
+    }
+
+    private void validateSourcePosition(Position position){
+        if(!board.There_is_a_Piece(position)){
+            throw new ChessException("não tem peça aí");
+        }
+    }
 
 }
