@@ -71,6 +71,11 @@ public class ChessMatch {
         if(!board.There_is_a_Piece(position)){
             throw new ChessException("não tem peça aí");
         }
+
+        if(!board.piece(position).IsThereAnyPossibleMove()){
+            throw new ChessException("não tem como mover essa peça aí");
+        }
+
     }
 
 }
