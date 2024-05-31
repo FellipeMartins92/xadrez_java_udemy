@@ -32,9 +32,19 @@ public class ChessMatch {
     }
 
     private void InitialSetup(){
-        place_new_piece('b',6,new Rook(board, Colors.WHITE));
-        place_new_piece('e',8,new King(board, Colors.BLACK));
-        place_new_piece('e',1,new King(board, Colors.WHITE));
+        place_new_piece('c', 1, new Rook(board, Colors.WHITE));
+        place_new_piece('c', 2, new Rook(board, Colors.WHITE));
+        place_new_piece('d', 2, new Rook(board, Colors.WHITE));
+        place_new_piece('e', 2, new Rook(board, Colors.WHITE));
+        place_new_piece('e', 1, new Rook(board, Colors.WHITE));
+        place_new_piece('d', 1, new King(board, Colors.WHITE));
+
+        place_new_piece('c', 7, new Rook(board, Colors.BLACK));
+        place_new_piece('c', 8, new Rook(board, Colors.BLACK));
+        place_new_piece('d', 7, new Rook(board, Colors.BLACK));
+        place_new_piece('e', 7, new Rook(board, Colors.BLACK));
+        place_new_piece('e', 8, new Rook(board, Colors.BLACK));
+        place_new_piece('d', 8, new King(board, Colors.BLACK));
     }
 
 
