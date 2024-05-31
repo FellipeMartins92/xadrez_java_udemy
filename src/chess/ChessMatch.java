@@ -5,6 +5,7 @@ import boardgame.Piece;
 import boardgame.Position;
 import chess_pieces.King;
 import chess_pieces.Rook;
+import javafx.geometry.Pos;
 
 public class ChessMatch {
     
@@ -54,6 +55,7 @@ public class ChessMatch {
         Position target = TargetPosition.toPosition();
 
         validateSourcePosition(source);
+        validateTargetPosition(source,target);
         Piece CapturedPiece = MakeMove(source,target);
 
         return (ChessPiece) CapturedPiece;
@@ -76,6 +78,12 @@ public class ChessMatch {
             throw new ChessException("não tem como mover essa peça aí");
         }
 
+    }
+
+    private void validateTargetPosition(Position source, Position Target){
+        if(!board.piece(source).PossibleMove(Target)){
+            throw new ChessException("peça escolhida não pode ir aí");
+        }
     }
 
 }
