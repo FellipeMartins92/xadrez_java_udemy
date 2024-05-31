@@ -42,9 +42,14 @@ public class UI {
         }catch(RuntimeException e){
 
             throw new InputMismatchException("Posições inválidas");
-            
+
         }
 
+    }
+
+    public static void ClearScreen(){
+        System.out.println("\033[H\033[2J");
+        System.out.flush();
     }
 
     public static void PrintBoard(ChessPiece[][] pieces){
