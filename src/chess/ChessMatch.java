@@ -1,41 +1,43 @@
 package chess;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import boardgame.Board;
 import boardgame.Piece;
 import boardgame.Position;
 import chess_pieces.King;
 import chess_pieces.Rook;
-import javafx.geometry.Pos;
 
 public class ChessMatch {
     
     private int turn;
-    private Colors currentplayer;
+	private Colors currentPlayer;
     private Board board;
+
+    private List<Piece> piecesOnTheBoard = new ArrayList<>();
+	private List<Piece> capturedPieces = new ArrayList<>();
     
     public ChessMatch(){
         board = new Board(8, 8);
         turn = 1;
-        currentplayer = Colors.WHITE;
+        currentPlayer = Colors.WHITE;
         InitialSetup();
     }
 
-    public Colors getCurrentplayer() {
-        return currentplayer;
-    }
-
     public int getTurn() {
-        return turn;
-    }
+		return turn;
+	}
+	
+	public Colors getCurrentPlayer() {
+		return currentPlayer;
+	}
 
-    private void nextTurn(){
-        turn++;
-        if(currentplayer == Colors.WHITE){
-            currentplayer = Colors.BLACK;
-        }else{
-            currentplayer = Colors.WHITE;
-        }
-    }
+    private void nextTurn() {
+		turn++;
+		currentPlayer = (currentPlayer == Colors.WHITE) ? Colors.BLACK : Colors.WHITE;
+	}
+
 
     public ChessPiece[][] getPieces(){
         
@@ -52,6 +54,7 @@ public class ChessMatch {
 
     private void place_new_piece(char collumn, int row, ChessPiece piece){
         board.place_piece(piece, new ChessPosition(collumn, row).toPosition());
+        piecesOnTheBoard.add(piece);
     }
 
     private void InitialSetup(){
@@ -78,6 +81,7 @@ public class ChessMatch {
         validateSourcePosition(source);
         validateTargetPosition(source,target);
         Piece CapturedPiece = MakeMove(source,target);
+        nextTurn();
 
         return (ChessPiece) CapturedPiece;
     }
@@ -87,13 +91,15 @@ public class ChessMatch {
         Piece captured = board.Remove_piece(Target);
         board.place_piece(p, Target);
 
-        nextTurn();
+        if (captured != null) {
+			piecesOnTheBoard.remove(captured);
+			capturedPieces.add(captured);
+		}
 
         return captured;
     }
 
     private void validateSourcePosition(Position position){
-
         if(!board.There_is_a_Piece(position)){
             throw new ChessException("não tem peça aí");
         }
@@ -102,8 +108,8 @@ public class ChessMatch {
             throw new ChessException("não tem como mover essa peça aí");
         }
 
-        if(currentplayer != ((ChessPiece)board.piece(position)).getColor()){
-            throw new ChessException("peça do adversário");
+        if(currentPlayer != ((ChessPiece)board.piece(position)).getColor()){
+            throw new ChessException("não é sua cor n parcero");
         }
 
     }
