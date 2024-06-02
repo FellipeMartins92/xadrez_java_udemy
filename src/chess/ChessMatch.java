@@ -9,11 +9,32 @@ import javafx.geometry.Pos;
 
 public class ChessMatch {
     
+    private int turn;
+    private Colors currentplayer;
     private Board board;
     
     public ChessMatch(){
         board = new Board(8, 8);
+        turn = 1;
+        currentplayer = Colors.WHITE;
         InitialSetup();
+    }
+
+    public Colors getCurrentplayer() {
+        return currentplayer;
+    }
+
+    public int getTurn() {
+        return turn;
+    }
+
+    private void nextTurn(){
+        turn++;
+        if(currentplayer == Colors.WHITE){
+            currentplayer = Colors.BLACK;
+        }else{
+            currentplayer = Colors.WHITE;
+        }
     }
 
     public ChessPiece[][] getPieces(){
@@ -66,16 +87,23 @@ public class ChessMatch {
         Piece captured = board.Remove_piece(Target);
         board.place_piece(p, Target);
 
+        nextTurn();
+
         return captured;
     }
 
     private void validateSourcePosition(Position position){
+
         if(!board.There_is_a_Piece(position)){
             throw new ChessException("não tem peça aí");
         }
 
         if(!board.piece(position).IsThereAnyPossibleMove()){
             throw new ChessException("não tem como mover essa peça aí");
+        }
+
+        if(currentplayer != ((ChessPiece)board.piece(position)).getColor()){
+            throw new ChessException("peça do adversário");
         }
 
     }

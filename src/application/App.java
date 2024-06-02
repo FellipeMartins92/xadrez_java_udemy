@@ -22,7 +22,7 @@ public class App {
             try{
                 UI.ClearScreen();
 
-                UI.PrintBoard(chessmatch.getPieces());
+                UI.PrintMatch(chessmatch);
 
                 System.out.println("");
 
